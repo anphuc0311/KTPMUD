@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Data;
@@ -124,8 +124,35 @@ namespace KTPMUD
 
         private void SearchButton_Click(object sender, RoutedEventArgs e)
         {
+            string keyword = SearchTextBox.Text.Trim(); // Lấy nội dung ô nhập tìm kiếm
 
+            if (string.IsNullOrEmpty(keyword))
+            {
+                LoadData(); // Nếu rỗng, hiển thị toàn bộ dữ liệu
+                return;
+            }
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    string query = "SELECT * FROM giong WHERE GiongCay LIKE @keyword";
+                    SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
+                    adapter.SelectCommand.Parameters.AddWithValue("@keyword", "%" + keyword + "%");
+
+                    DataTable dataTable = new DataTable();
+                    adapter.Fill(dataTable);
+
+                    dataGridGiongCayTrong.ItemsSource = dataTable.DefaultView;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi tìm kiếm: {ex.Message}");
+            }
         }
+
 
         private void GoBackButton_Click(object sender, RoutedEventArgs e)
         {
