@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Data;
@@ -35,10 +35,36 @@ namespace KTPMUD
 
         private void SearchButton_Click(object sender, RoutedEventArgs e)
         {
+            string searchKeyword = SearchTextBox.Text.Trim();
 
+            if (string.IsNullOrEmpty(searchKeyword))
+            {
+                LoadData(); // Nếu không nhập gì, hiển thị toàn bộ dữ liệu
+                return;
+            }
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    string query = "SELECT * FROM LoaiHinhSanXuat WHERE LoaiHinhSanXuat LIKE @keyword OR ThongTinCoSo LIKE @keyword";
+                    SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
+                    adapter.SelectCommand.Parameters.AddWithValue("@keyword", "%" + searchKeyword + "%");
+
+                    DataTable dataTable = new DataTable();
+                    adapter.Fill(dataTable);
+                    dataGridGo.ItemsSource = dataTable.DefaultView;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi tìm kiếm dữ liệu: {ex.Message}");
+            }
         }
 
-       
+
+
 
         private void GoBackButton_Click(object sender, RoutedEventArgs e)
         {
