@@ -1,0 +1,75 @@
+﻿<Window x:Class="KTPMUD.quanlygo"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:KTPMUD"
+        mc:Ignorable="d"
+        Title="quanlygo" Height="450" Width="800">
+    <Grid>
+        <Grid Margin="0,30,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top">
+
+                <TextBox x:Name="SearchTextBox" Width="200" Height="30" 
+                 Margin="0,0,10,0" 
+                 VerticalContentAlignment="Center"
+               
+                 FontSize="14"/>
+
+                <Button Width="80" Height="30" Background="#0078D7" Foreground="White" 
+                Margin="0,0,10,0" 
+                Click="SearchButton_Click">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <TextBlock Text="Search" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+
+                <Button Width="80" Height="30" Background="#28A745" Foreground="White" 
+                Margin="0,0,10,0" 
+                Click="AddNewButton_Click">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <TextBlock Text="Add new" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+
+                <Button Width="80" Height="30" Background="#FF4B4B" Foreground="White" 
+                Click="GoBackButton_Click">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <TextBlock Text="Back" VerticalAlignment="Center"/>
+
+                    </StackPanel>
+                </Button>
+                <Button x:Name="btnXoa" Content="Xóa" Width="74" Height="29" Margin="5" Click="BtnXoa_Click" RenderTransformOrigin="0.5,0.5">
+                    
+                </Button>
+
+            </StackPanel>
+        </Grid>
+        <DataGrid x:Name="dataGridGo" AutoGenerateColumns="False" 
+                  Height="270" Margin="10,10,10,0" SelectionChanged="dataGridGo_SelectionChanged">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding ID}" Width="50" />
+                <DataGridTextColumn x:Name="txtLoaiHinh" Header="Loại hình sản xuất" Binding="{Binding LoaiHinhSanXuat}" Width="110" />
+                <DataGridTextColumn x:Name="txtThongTinCoSo" Header="Thông tin cơ sở sản xuất" Binding="{Binding ThongTinCoSo}" Width="200" />
+                <DataGridTextColumn x:Name="txtHinhThucHoatDong" Header="Hình thức hoạt động" Binding="{Binding HinhThucHoatDong}" Width="120" />
+                <DataGridTextColumn x:Name="txtThang" Header="Thống kê tháng" Binding="{Binding ThongKeThang}" Width="100" />
+                <DataGridTextColumn x:Name="txtQuy" Header="Thống kê quý " Binding="{Binding ThongKeQuy}" Width="100" />
+                <DataGridTextColumn x:Name="txtNam" Header="Thống kê năm " Binding="{Binding ThongKeNam}" Width="100" />
+                
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Button Content="Lịch sử truy nhập"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Margin="0,0,20,10"
+                Width="150"
+                Height="45"
+                Click="HistoryButton_Click"/>
+    </Grid>
+</Window>

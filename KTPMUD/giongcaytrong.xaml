@@ -1,0 +1,81 @@
+﻿<Window x:Class="KTPMUD.giongcaytrong"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:KTPMUD"
+        mc:Ignorable="d"
+        Title="giongcaytrong" Height="450" Width="800">
+   <Grid>
+        <Grid Margin="0,30,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top">
+
+                <TextBox x:Name="SearchTextBox" Width="200" Height="30" 
+                 Margin="0,0,10,0" 
+                 VerticalContentAlignment="Center"
+               
+                 FontSize="14"/>
+
+                <Button Width="80" Height="30" Background="#0078D7" Foreground="White" 
+                Margin="0,0,10,0" 
+                Click="SearchButton_Click">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <TextBlock Text="Search" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+
+                <Button Width="80" Height="30" Background="#28A745" Foreground="White" 
+                Margin="0,0,10,0" 
+                Click="BtnThem_Click">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <TextBlock Text="Add new" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+
+                <Button Width="80" Height="30" Background="#FF4B4B" Foreground="White" 
+                Click="GoBackButton_Click">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <TextBlock Text="Back" VerticalAlignment="Center"/>
+
+                    </StackPanel>
+                </Button>
+                <Button  Content="Xóa" Width="74" Height="29" Margin="5" Click="BtnXoa_Click" RenderTransformOrigin="0.5,0.5">
+                    <Button.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="-0.378"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Button.RenderTransform>
+                </Button>
+
+            </StackPanel>
+        </Grid>
+        <DataGrid x:Name="dataGridGiongCayTrong" AutoGenerateColumns="False" 
+                  Height="270" Margin="10,10,10,0" SelectionChanged="dataGridGiongCayTrong_SelectionChanged">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding ID}" Width="80" />
+                <DataGridTextColumn Header="Giống Cây" Binding="{Binding GiongCay}" Width="100" />
+                <DataGridTextColumn Header="Số Lượng" Binding="{Binding SoLuong}" Width="100" />
+                <DataGridTextColumn Header="Thông tin về giống cây" Binding="{Binding MoTa}" Width="250" />
+                <DataGridTextColumn Header="Cơ sở sản xuất giống cây" Binding="{Binding csxs}" Width="150" />
+                <DataGridTextColumn Header="Số lượng cơ sở " Binding="{Binding soluongcs}" Width="150" />
+
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Button Content="Lịch sử truy nhập"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Margin="0,0,20,10"
+                Width="150"
+                Height="45"
+                Click="HistoryButton_Click"/>
+    </Grid>
+</Window>

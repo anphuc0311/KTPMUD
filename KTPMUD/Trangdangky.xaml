@@ -1,0 +1,153 @@
+﻿<Window x:Class="KTPMUD.Trangdangky"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:KTPMUD"
+        mc:Ignorable="d"
+        Title="Trang đăng ký" Height="450" Width="800">
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="imagee/anh-thien-nhien-18.jpg"/>
+        </Grid.Background>
+        <Label Content="Trang đăng ký"
+               FontWeight="Black"
+               FontSize="28"
+               HorizontalAlignment="Center"
+               Margin="251,0,250,315"
+               Grid.Row="0"
+               MinWidth="100"
+               MaxWidth="300"
+               MinHeight="30"
+               MaxHeight="60" Width="250"/>
+        <StackPanel 
+            HorizontalAlignment="Right"
+                    Margin="0,90,0,8"
+            Width="800">
+            <Label Content="Họ tên:" 
+                       FontSize="16" 
+                       FontWeight="Bold"
+                       Margin="0,0,0,10" 
+                       Padding="5"
+                       MinWidth="50" 
+                       MaxWidth="200" 
+                       MinHeight="20" 
+                       MaxHeight="40"/>
+
+            <Label Content="Tài khoản" 
+                       FontSize="16" 
+                    FontWeight="Bold"
+                       Margin="0,10,0,10" 
+                       Padding="5"
+                       MinWidth="50" 
+                       MaxWidth="200" 
+                       MinHeight="20" 
+                       MaxHeight="40"/>
+
+            <Label Content="Mật khẩu" 
+                       FontSize="16" 
+                       FontWeight="Bold"
+                       Margin="0,10,0,10" 
+                       Padding="5"
+                       MinWidth="50" 
+                       MaxWidth="200" 
+                       MinHeight="20" 
+                       MaxHeight="40"/>
+
+            <Label Content="email" 
+                       FontSize="16" 
+                       FontWeight="Bold"
+                       Margin="0,10,0,10" 
+                       Padding="5"
+                       MinWidth="50" 
+                       MaxWidth="200"
+                       MinHeight="20" 
+                       MaxHeight="40"/>
+            <Label Content="quyền" 
+                       FontSize="16" 
+                       FontWeight="Bold"
+                       Margin="0,10,0,10" 
+                       Padding="5"
+                       MinWidth="50" 
+                       MaxWidth="200" 
+                       MinHeight="20" 
+                       MaxHeight="40"/>
+
+        </StackPanel>
+        <StackPanel HorizontalAlignment="Right"
+                    Margin="0,98,0,8"
+            Width="378" Height="314">
+            <TextBox x:Name="hoten" 
+                         Padding="12" 
+                         Background="Beige"
+                         Width="200"
+                         Margin="0,0,0,10"
+                         MinWidth="100" 
+                         MaxWidth="300" 
+                         MinHeight="30" 
+                         MaxHeight="50"/>
+
+            <TextBox x:Name="taikhoan" 
+                          Width="200" 
+                          Margin="0,0,0,10"
+                          MinWidth="100" 
+                          MaxWidth="300" 
+                          MinHeight="30" 
+                          MaxHeight="50"/>
+
+            <TextBox x:Name="matkhau" 
+                          Padding="12"
+                          Background="Beige"
+                          Width="200" 
+                          Margin="0,0,0,10"
+                          MinWidth="100" 
+                          MaxWidth="300" 
+                          MinHeight="30" 
+                          MaxHeight="50"/>
+
+            <TextBox x:Name="emails" 
+                         Padding="12" 
+                         Background="Beige" 
+                         Width="200" 
+                         Margin="0,0,0,10" 
+                         MinWidth="100" 
+                         MaxWidth="300" 
+                         MinHeight="30" 
+                         MaxHeight="50"/>
+
+            <ComboBox x:Name="quyen" 
+          Padding="12" 
+          Background="Beige" 
+          Width="200" 
+          Margin="0,0,0,10"
+          MinWidth="100" 
+          MaxWidth="300" 
+          MinHeight="30" 
+          MaxHeight="50">
+                <ComboBoxItem Content="Cấp xã" />
+                <ComboBoxItem Content="Cấp Huyện" />
+                <ComboBoxItem Content="Cơ sở sản xuất gỗ" />
+                <ComboBoxItem Content="Cơ sở sản xuất giống cây" />
+                <ComboBoxItem Content="Cơ sở quản lý động vật"/>
+            </ComboBox>
+            <Button x:Name="button"
+                        Padding="12"
+                        Background="Beige"
+                        Width="200"
+                        Height="53"
+                        Content="Xác nhận"
+                        FontSize="20" Click="button_Click_1" 
+                        />
+        </StackPanel>
+        <Button x:Name="Back"
+                Content="←" 
+                FontSize="24" 
+                Foreground="Black" 
+                Width="50" 
+                Height="50"
+                Margin="10,10,740,374" Click="Back_Click"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"/>
+                
+    </Grid>
+</Window>

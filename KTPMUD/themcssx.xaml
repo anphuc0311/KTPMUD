@@ -1,0 +1,35 @@
+﻿<Window x:Class="KTPMUD.themcssx"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Thêm Cơ Sở Sản Xuất" Height="400" Width="400">
+    <Grid>
+        <StackPanel VerticalAlignment="Top" Margin="10">
+            <!-- Loại hình sản xuất -->
+            <TextBlock Text="Loại hình sản xuất" />
+            <TextBox x:Name="txtLoaiHinh" Width="200" Margin="0,5"/>
+
+            <!-- Thông tin cơ sở sản xuất -->
+            <TextBlock Text="Thông tin cơ sở sản xuất" />
+            <TextBox x:Name="txtCoSo" Width="200" Margin="0,5"/>
+
+            <!-- Hình thức hoạt động -->
+            <TextBlock Text="Hình thức hoạt động" />
+            <TextBox x:Name="txtHinhThuc" Width="200" Margin="0,5"/>
+
+            <!-- Thống kê tháng -->
+            <TextBlock Text="Thống kê tháng" />
+            <TextBox x:Name="txtThongKeThang" Width="200" Margin="0,5"/>
+
+            <!-- Thống kê quý -->
+            <TextBlock Text="Thống kê quý" />
+            <TextBox x:Name="txtThongKeQuy" Width="200" Margin="0,5"/>
+
+            <!-- Thống kê năm -->
+            <TextBlock Text="Thống kê năm" />
+            <TextBox x:Name="txtThongKeNam" Width="200" Margin="0,5"/>
+
+            <!-- Nút thêm -->
+            <Button Content="Thêm" Width="100" Height="30" Margin="0,10" Click="AddButton_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

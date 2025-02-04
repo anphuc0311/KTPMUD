@@ -1,0 +1,24 @@
+﻿<Window x:Class="KTPMUD.ThemGiongCay"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Thêm Giống Cây" Height="300" Width="400">
+    <Grid>
+        <Label Content="Giống Cây:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtGiongCay" HorizontalAlignment="Left" Margin="120,10,0,0" VerticalAlignment="Top" Width="200"/>
+
+        <Label Content="Số Lượng:" HorizontalAlignment="Left" Margin="10,50,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtSoLuong" HorizontalAlignment="Left" Margin="120,50,0,0" VerticalAlignment="Top" Width="200"/>
+
+        <Label Content="Mô Tả:" HorizontalAlignment="Left" Margin="10,90,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtMoTa" HorizontalAlignment="Left" Margin="120,90,0,0" VerticalAlignment="Top" Width="200"/>
+
+        <Label Content="Cơ sở sản xuất:" HorizontalAlignment="Left" Margin="10,130,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="csxs" HorizontalAlignment="Left" Margin="120,130,0,0" VerticalAlignment="Top" Width="200"/>
+
+        <Label Content="Số lượng cơ sở:" HorizontalAlignment="Left" Margin="10,170,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtsoluongcs" HorizontalAlignment="Left" Margin="120,170,0,0" VerticalAlignment="Top" Width="200"/>
+
+        <Button Content="Lưu" HorizontalAlignment="Left" Margin="120,200,0,0" VerticalAlignment="Top" Width="80" Click="BtnLuu_Click"/>
+        <Button Content="Hủy" HorizontalAlignment="Left" Margin="220,200,0,0" VerticalAlignment="Top" Width="80" Click="BtnHuy_Click"/>
+    </Grid>
+</Window>
