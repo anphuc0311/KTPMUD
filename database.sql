@@ -1,152 +1,175 @@
+-- 1. Tạo database
+Create database anphuc
+Go
+-- 2. Sử dụng database vừa tạo
+USE anphuc;
+GO
 
-use anphuc;
+-- 3. Tạo bảng user_cososanxuat
+CREATE TABLE user_cososanxuat (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    user_id INT FOREIGN KEY REFERENCES users(id) ON DELETE CASCADE,
+    coso_id INT FOREIGN KEY REFERENCES cososanxuat(MaCoSo) ON DELETE CASCADE,
+    role NVARCHAR(50) DEFAULT N'Quản lý' -- Vai trò của user trong cơ sở
+);
+-- 4. Tạo bảng Roles (Nhóm quyền)
+CREATE TABLE roles (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    role_name NVARCHAR(50) UNIQUE
+);
 
--- Table: users
+-- 5. Tạo bảng Users
 CREATE TABLE users (
     id INT IDENTITY(1,1) PRIMARY KEY,
     fullname NVARCHAR(255),
     username NVARCHAR(25) UNIQUE,
     password NVARCHAR(72),
-    email NVARCHAR(25),
-    roles NVARCHAR(25),
-    status BIT
+    email NVARCHAR(50),
+    role_id INT FOREIGN KEY REFERENCES roles(id),
+    status BIT DEFAULT 1
 );
 
--- Table: user_activity
+-- 6. Tạo bảng User Activity
 CREATE TABLE user_activity (
     id INT IDENTITY(1,1) PRIMARY KEY,
-    user_id INT FOREIGN KEY REFERENCES users(id),
+    user_id INT FOREIGN KEY REFERENCES users(id) ON DELETE CASCADE,
     IsActive BIT DEFAULT 0,
-    LastActivity DATETIME DEFAULT GETUTCDATE()
+    LastActivity DATETIME DEFAULT GETDATE()
 );
 
-
-
--- Table: permissions
-
-
--- Table: user_groups
-CREATE TABLE user_groups (
-    id INT IDENTITY(1,1) PRIMARY KEY,
-    group_name NVARCHAR(25),
-    description NVARCHAR(255)
-);
-
--- Table: user_group_members
-CREATE TABLE user_group_members (
-    id INT IDENTITY(1,1) PRIMARY KEY,
-    user_id INT FOREIGN KEY REFERENCES users(id),
-    group_id INT FOREIGN KEY REFERENCES user_groups(id)
-);
-
--- Table: login_history
+-- 7. Tạo bảng Login History
 CREATE TABLE login_history (
     id INT IDENTITY(1,1) PRIMARY KEY,
-    user_id INT FOREIGN KEY REFERENCES users(id),
-    login_time DATETIME,
+    user_id INT FOREIGN KEY REFERENCES users(id) ON DELETE CASCADE,
+    login_time DATETIME DEFAULT GETDATE(),
     ip_address NVARCHAR(25)
 );
 
--- Table: huyen
+-- 8. Tạo bảng Huyện
 CREATE TABLE huyen (
     id INT IDENTITY(1,1) PRIMARY KEY,
-    name NVARCHAR(25),
-    code NVARCHAR(25)
+    name NVARCHAR(50) UNIQUE,
+    code NVARCHAR(25) UNIQUE
 );
 
--- Table: xa
+-- 9. Tạo bảng Xã
 CREATE TABLE xa (
     id INT IDENTITY(1,1) PRIMARY KEY,
-    name NVARCHAR(25),
-    code NVARCHAR(25),
-    huyen_id INT FOREIGN KEY REFERENCES huyen(id)
+    name NVARCHAR(50),
+    code NVARCHAR(25) UNIQUE,
+    huyen_id INT FOREIGN KEY REFERENCES huyen(id) ON DELETE CASCADE
 );
 
--- Table: legal_documents
-CREATE TABLE legaldocuments (
-    id INT IDENTITY(1,1) PRIMARY KEY,
-    title NVARCHAR(25),
-    files NVARCHAR(25),
-    issue_date DATE
-);
-
---Table: giongcaytrong
-CREATE TABLE giongcaytrong(
-	id INT PRIMARY KEY,
-	giongcay NVARCHAR(100),
-	soluong int,
-	Mota Nvarchar(100),
-);
-
---Table: cososanxuat
-CREATE TABLE CoSoSanXuat (
+-- 10. Tạo bảng Cơ Sở Sản Xuất
+CREATE TABLE cososanxuat (
     MaCoSo INT PRIMARY KEY IDENTITY,
     TenCoSo NVARCHAR(100),
     DiaChi NVARCHAR(255),
-    LoaiGiong INT FOREIGN KEY REFERENCES giongcaytrong(id),
-    SoLuong INT,
-    ToaDo NVARCHAR(100) -- 
-);
-
-
-
-
-
-
-select * from users;
-
-create table giong(
-	id INT identity(1,1) primary key,
-	giongcay NVARCHAR(100),
-	soluong int,
-	mota NVARCHAR(100),
-	tencs NVARCHAR(255),
-	soluongcs INT,
-);
-
-create table coso(
-	id INT IDENTITY(1,1) PRIMARY KEY,
-	TenCoSo NVARCHAR(100),
-    DiaChi NVARCHAR(255),
     LoaiGiong INT FOREIGN KEY REFERENCES giong(id),
+    SoLuong INT,
+    ToaDo NVARCHAR(100),
+    xa_id INT FOREIGN KEY REFERENCES xa(id) ON DELETE SET NULL
 );
 
+-- 11. Tạo bảng Giống Cây Trồng
+CREATE TABLE giong (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    giongcay NVARCHAR(100),
+    soluong INT,
+    mota NVARCHAR(255)
+);
 
-
+-- 12. Tạo bảng Loại Hình Sản Xuất
 CREATE TABLE LoaiHinhSanXuat (
     ID INT IDENTITY(1,1) PRIMARY KEY,
     LoaiHinhSanXuat NVARCHAR(255),
-    ThongTinCoSo NVARCHAR(255),
+    CoSoSanXuat INT FOREIGN KEY REFERENCES cososanxuat(MaCoSo),
     HinhThucHoatDong NVARCHAR(255),
     ThongKeThang INT,
     ThongKeQuy INT,
     ThongKeNam INT
 );
 
-
+-- 13. Tạo bảng Động Vật
 CREATE TABLE DongVat (
     ID INT IDENTITY(1,1) PRIMARY KEY,
     TenDongVat NVARCHAR(255),
     LoaiDongVat NVARCHAR(255),
     SoLuong INT,
-    CoSoLuuTru NVARCHAR(255),
+    CoSoLuuTru INT FOREIGN KEY REFERENCES cososanxuat(MaCoSo),
     BienDong NVARCHAR(255),
     ThongKeThang INT,
     ThongKeQuy INT,
     ThongKeNam INT
 );
 
-
-
--- Tạo bảng giong
-CREATE TABLE giong (
+-- 14. Tạo bảng Permissions (Quyền)
+CREATE TABLE permissions (
     id INT IDENTITY(1,1) PRIMARY KEY,
-    giongcay NVARCHAR(100),
-    soluong INT,
-    mota NVARCHAR(100),
-    tencs NVARCHAR(255),
-    soluongcs INT
+    permission_name NVARCHAR(50) UNIQUE
 );
+
+-- 15. Bảng Nhiều - Nhiều giữa Users và Permissions
+CREATE TABLE user_permissions (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    user_id INT FOREIGN KEY REFERENCES users(id) ON DELETE CASCADE,
+    permission_id INT FOREIGN KEY REFERENCES permissions(id) ON DELETE CASCADE
+);
+
+-- 16. Chèn dữ liệu mẫu cho huyện
+INSERT INTO huyen (name, code) VALUES 
+('Huyện A', 'HYA'),
+('Huyện B', 'HYB');
+
+-- 17. Chèn dữ liệu mẫu cho xã
+INSERT INTO xa (name, code, huyen_id) VALUES 
+('Xã 1', 'XA1', 1),
+('Xã 2', 'XA2', 2);
+
+-- 18. Chèn dữ liệu mẫu vào bảng giống cây trồng
+INSERT INTO giong (giongcay, soluong, mota) VALUES 
+('Xoài cát Hòa Lộc', 100, 'Giống xoài thơm ngon'),
+('Bưởi da xanh', 150, 'Bưởi ngọt, ít hạt');
+
+-- 19. Chèn dữ liệu mẫu vào bảng cơ sở sản xuất
+INSERT INTO cososanxuat (TenCoSo, DiaChi, LoaiGiong, SoLuong, ToaDo, xa_id) VALUES 
+('Nhà vườn A', 'Hà Nội', 1, 50, '21.0285,105.8542', 1),
+('Nhà vườn B', 'TP.HCM', 2, 70, '10.7769,106.7009', 2);
+
+-- 20. Chèn dữ liệu mẫu vào bảng loại hình sản xuất
+INSERT INTO LoaiHinhSanXuat (LoaiHinhSanXuat, CoSoSanXuat, HinhThucHoatDong, ThongKeThang, ThongKeQuy, ThongKeNam) VALUES 
+('Chế biến gỗ', 1, 'Sản xuất gỗ nội thất', 120, 3, 2024);
+
+-- 21. Chèn dữ liệu mẫu vào bảng động vật
+INSERT INTO DongVat (TenDongVat, LoaiDongVat, SoLuong, CoSoLuuTru, BienDong, ThongKeThang, ThongKeQuy, ThongKeNam) VALUES 
+('Hổ', 'Động vật có vú', 5, 1, 'Tăng', 3, 1, 2024),
+('Voi', 'Động vật có vú', 2, 2, 'Không đổi', 2, 1, 2024);
+
+-- 22. Chèn dữ liệu mẫu vào bảng Roles
+INSERT INTO roles (role_name) VALUES ('Admin'), ('User');
+
+-- 23. Chèn dữ liệu mẫu vào bảng Users
+INSERT INTO users (fullname, username, password, email, role_id, status) VALUES 
+('Do Ton Nguyen', 'king', 'anphuc', 'blabla@gmail.com', 1, 1);
+
+-- 24. Chèn dữ liệu mẫu vào bảng Permissions
+INSERT INTO permissions (permission_name) VALUES 
+('READ'), ('WRITE'), ('DELETE');
+
+-- 25. Cấp quyền READ và WRITE cho user ID 1
+INSERT INTO user_permissions (user_id, permission_id) VALUES (1, 1), (1, 2);
+
+-- 26. Chèn dữ liệu vào bảng login_history
+INSERT INTO login_history (user_id, login_time, ip_address) VALUES (1, GETDATE(), '192.168.1.1');
+
+-- 27. Hiển thị danh sách user
+SELECT * FROM users;
+
+-- 28. Hiển thị danh sách cơ sở sản xuất
+SELECT * FROM cososanxuat;
+
+-- 29. Hiển thị danh sách loại hình sản xuất
+SELECT * FROM LoaiHinhSanXuat;
 
 -- Chèn dữ liệu mẫu
 
