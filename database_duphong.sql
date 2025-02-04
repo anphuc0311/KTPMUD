@@ -1,5 +1,7 @@
-﻿
+create database anphuc﻿
+go
 use anphuc;
+go
 
 -- Table: users
 CREATE TABLE users (
